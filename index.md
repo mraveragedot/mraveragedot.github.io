@@ -2,7 +2,7 @@
 
 ## Demos
 
-- [Bouncing Ball](01-ball)
+- [Bouncing Ball](01.ball)
 
 ## projects
 - [interactive Scene](piano-tiles)
