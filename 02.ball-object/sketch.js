@@ -5,27 +5,32 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let balls = []
-
-let theBall = {
-  x: 100,
-  y: 100,
-  radius: 25,
-  r: 255,
-  g: 0,
-  b: 0,
-  dx: -4,
-  dy: -3,
-};
+let theBall;
+let balls = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  theBall = spawnBall();
 }
 
 function draw() {
   background(220);
   moveBall();
   displayBall();
+}
+
+function spawnBall(){
+  let theBall = {
+    x: random(width),
+    y: random(height),
+    radius: random(15,30),
+    r: random(255),
+    g: random(255),
+    b: random(255),
+    dx: random(-5, 5),
+    dy: random(-5, 5),
+  };
+  return theBall;
 }
 
 function displayBall() {
@@ -49,6 +54,13 @@ function moveBall(){
     theBall.y = height + theBall.radius;
   }
 
+  console.log(theBall.x, theBall.y);
+}
+
+function KeyTyped(){
+  if (key === " "){
+    theBall = spawnBall();
+  }
 }
 
 function mouseClicked(){
