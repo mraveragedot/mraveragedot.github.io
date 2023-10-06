@@ -57,7 +57,7 @@ function moveBall(){
   console.log(theBall.x, theBall.y);
 }
 
-function KeyTyped(){
+function keyTyped(){
   if (key === " "){
     theBall = spawnBall();
   }
