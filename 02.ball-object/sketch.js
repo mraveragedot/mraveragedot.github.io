@@ -61,6 +61,7 @@ function KeyTyped(){
   if (key === " "){
     theBall = spawnBall();
   }
+  console.log("space");
 }
 
 function mouseClicked(){
