@@ -63,5 +63,13 @@ function moveTargets(){
 }
 
 function shoot(){
-  line(width/2, height, mouseX, mouseY);
+  strokeWeight(50);
+  let cannonX = dist(width/2, mouseX);
+  console.log(cannonX);
+  let cannonY = dist(height, mouseY);
+  console.log(cannonY);
+  line(width/2, height, mouseX + -1 * cannonX + 20, mouseY + -1 * cannonY + 20);
+
+
+  strokeWeight(1);
 }
