@@ -10,6 +10,8 @@ let lastTarget = 0;
 let targets = [];
 let time = 30;
 let target;
+let ball;
+let balls = [];
 
 
 function setup() {
@@ -20,7 +22,8 @@ function draw() {
   background(220);
   makeTargets();
   moveTargets();
-  shoot();
+  moveBall();
+
 }
 
 function makeTargets(){
@@ -61,14 +64,30 @@ function moveTargets(){
 
 }
 
-function shoot(){
-  strokeWeight(50);
+function mouseClicked(){
+spawnBall()
+}
 
-  let magX = dist(width/2, 0, mouseX, 0);
-  let magY = dist(0, height, 0, mouseY);
-  console.log(mouseX/magX,mouseY/magY);
+function spawnBall(){
+  let ball = {
+    Mx: mouseX,
+    My: mouseY,
+    Sx: width/2,
+    Sy: height,
+    y: height,
+    size: 20,
+  }
+  ball.slope = (ball.My-ball.Sy)/(ball.Sx-ball.Mx);
+  ball.b = (ball.slope*ball.Mx-ball.My)*-1;
+  ball.x = (ball.Sy-ball.b)/ball.slope;
+  balls.push(ball)
+}
 
-  line(width/2, height, mouseX/magX, mouseY/magY);
+function moveBall(){
+  for(let i = 0;i < balls.length;i ++){
+    circle(ball[i].x,ball[i].y,ball[i].size);
+  }
+  ball[i].y -= 5;
+  console.log(ball.x,ball.y,ball.slope)
 
-  strokeWeight(1);
 }
