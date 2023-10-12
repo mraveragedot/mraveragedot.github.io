@@ -64,9 +64,11 @@ function moveTargets(){
 function shoot(){
   strokeWeight(50);
 
-  let mag = dist(width/2, height, mouseX, mouseY);
+  let magX = dist(width/2, 0, mouseX, 0);
+  let magY = dist(0, height, 0, mouseY);
+  console.log(mouseX/magX,mouseY/magY);
 
-  line(width/2, height, mouseX*50/mag, mouseY*50/mag);
+  line(width/2, height, mouseX/magX, mouseY/magY);
 
   strokeWeight(1);
 }
