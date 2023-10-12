@@ -77,7 +77,7 @@ function spawnBall(){
     y: height,
     size: 20,
   }
-  ball.slope = (ball.My-ball.Sy)/(ball.Sx-ball.Mx);
+  ball.slope = (ball.My-ball.Sy)/(ball.Mx-ball.Sx);
   ball.b = (ball.slope*ball.Mx-ball.My)*-1;
   ball.x = (ball.Sy-ball.b)/ball.slope;
   balls.push(ball)
@@ -85,9 +85,11 @@ function spawnBall(){
 
 function moveBall(){
   for(let i = 0;i < balls.length;i ++){
-    circle(ball[i].x,ball[i].y,ball[i].size);
+    circle(balls[i].x,balls[i].y,balls[i].size);
+  balls[i].y -= 10;
+  balls[i].x = (balls[i].y-balls[i].b)/balls[i].slope;
+
   }
-  ball[i].y -= 5;
-  console.log(ball.x,ball.y,ball.slope)
+  //console.log(balls)
 
 }
