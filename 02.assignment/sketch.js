@@ -23,6 +23,7 @@ function draw() {
   makeTargets();
   moveTargets();
   moveBall();
+  drawCannon();
 
 }
 
@@ -65,7 +66,7 @@ function moveTargets(){
 }
 
 function mouseClicked(){
-spawnBall()
+  spawnBall();
 }
 
 function spawnBall(){
@@ -91,5 +92,10 @@ function moveBall(){
 
   }
   //console.log(balls)
+}
 
+function drawCannon(){
+  //calculating angle
+  let a = atan2(mouseY - height, mouseX - width/2);
+  line(width/2, height, width/2 - 80 * sin(a), height - 80 * cos(a));
 }
