@@ -12,6 +12,8 @@ let time = 30;
 let target;
 let ball;
 let balls = [];
+let Sx;
+let Sy;
 
 
 function setup() {
@@ -73,29 +75,30 @@ function spawnBall(){
   let ball = {
     Mx: mouseX,
     My: mouseY,
-    Sx: width/2,
-    Sy: height,
     y: height,
     size: 20,
-  }
-  ball.slope = (ball.My-ball.Sy)/(ball.Mx-ball.Sx);
+  };
+  ball.slope = (ball.My-Sy)/(ball.Mx-Sx);
   ball.b = (ball.slope*ball.Mx-ball.My)*-1;
-  ball.x = (ball.Sy-ball.b)/ball.slope;
-  balls.push(ball)
+  ball.x = (Sy-ball.b)/ball.slope;
+  balls.push(ball);
 }
 
 function moveBall(){
   for(let i = 0;i < balls.length;i ++){
     circle(balls[i].x,balls[i].y,balls[i].size);
-  balls[i].y -= 10;
-  balls[i].x = (balls[i].y-balls[i].b)/balls[i].slope;
+    balls[i].y -= 10;
+    balls[i].x = (balls[i].y-balls[i].b)/balls[i].slope;
 
   }
   //console.log(balls)
 }
 
 function drawCannon(){
-  //calculating angle
+  stroke(20);
   let a = atan2(mouseY - height, mouseX - width/2);
-  line(width/2, height, width/2 - 80 * sin(a), height - 80 * cos(a));
+  Sx = width/2 + 80 * cos(-a);
+  Sy = height - 80 * sin(-a);
+  line(width/2, height, Sx ,Sy );
+  stroke(1);
 }
