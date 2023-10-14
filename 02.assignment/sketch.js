@@ -1,9 +1,11 @@
-// Project Title
-// Your Name
+// Target rush
+// Nohl
 // Date
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Made a line function that the cannonball follows based on where the mouse was clicked, used atan2, cos, sin, to make a cannon that points towards
+// the players curser, added collision to see if the cannball hits the targets, also used srokeWeight to make the cannon a actual cannon, 
+// used splice to take out a spicific thing in the array instead of just off the end of the array.
 
 let targetdelay = 1000;
 let lastTarget = 0;
@@ -26,6 +28,7 @@ function draw() {
   moveTargets();
   moveBall();
   drawCannon();
+  collision();
 
 }
 
@@ -34,7 +37,7 @@ function makeTargets(){
     target = {
       x: random(0,50.001),
       y: height/12,
-      speed: random(5,10),
+      speed: random(3, 7),
       diameter: random(35,40),
       colour: ["blue", "red", "yellow"],
     };
@@ -62,6 +65,11 @@ function moveTargets(){
       fill(targets[i].colour[2]);
       circle(targets[i].x, targets[i].y, targets[i].diameter/3);
       targets[i].x += targets[i].speed;
+
+      //getting rid of targets
+      if (targets[i].x > width + targets[i].diameter || targets[i].x < 0 - targets[i].diameter){
+        targets.splice(i, 1);
+      }
     }
   }
 
@@ -75,7 +83,7 @@ function spawnBall(){
   let ball = {
     Mx: mouseX,
     My: mouseY,
-    y: height,
+    y: Sy,
     size: 20,
   };
   ball.slope = (ball.My-Sy)/(ball.Mx-Sx);
@@ -85,20 +93,37 @@ function spawnBall(){
 }
 
 function moveBall(){
+  fill("red")
   for(let i = 0;i < balls.length;i ++){
     circle(balls[i].x,balls[i].y,balls[i].size);
     balls[i].y -= 10;
     balls[i].x = (balls[i].y-balls[i].b)/balls[i].slope;
 
+    //get rid of balls
+    if (balls[i].x > width || balls[i].x < 0 || balls[i].y < 0){
+      balls.splice(i,1);
+    }
   }
   //console.log(balls)
 }
 
 function drawCannon(){
-  stroke(20);
+  strokeWeight(20);
   let a = atan2(mouseY - height, mouseX - width/2);
   Sx = width/2 + 80 * cos(-a);
   Sy = height - 80 * sin(-a);
   line(width/2, height, Sx ,Sy );
-  stroke(1);
+  strokeWeight(1);
+}
+
+function collision(){
+  for (let i = 0;i < balls.length;i++){
+    for(let n = 0;n < targets.length; n ++){
+      if(dist(balls[i].x, balls[i].y, targets[n].x, targets[n].y) <= balls[i].size/2 + targets[n].diameter/2){
+        targets.splice(n,1);
+        console.log(true)
+      }
+      console.log(n,i)
+    }
+  }
 }
