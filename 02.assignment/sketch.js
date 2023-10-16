@@ -38,7 +38,7 @@ function makeTargets(){
       x: random(0,50.001),
       y: height/12,
       speed: random(3, 7),
-      diameter: random(35,40),
+      diameter: random(55,60),
       colour: ["blue", "red", "yellow"],
     };
     if (target.x <= 25){
@@ -85,6 +85,7 @@ function spawnBall(){
     My: mouseY,
     y: Sy,
     size: 20,
+    speed: 20
   };
   ball.slope = (ball.My-Sy)/(ball.Mx-Sx);
   ball.b = (ball.slope*ball.Mx-ball.My)*-1;
@@ -93,10 +94,10 @@ function spawnBall(){
 }
 
 function moveBall(){
-  fill("red")
+  fill("red");
   for(let i = 0;i < balls.length;i ++){
     circle(balls[i].x,balls[i].y,balls[i].size);
-    balls[i].y -= 10;
+    balls[i].y -= balls[i].speed;
     balls[i].x = (balls[i].y-balls[i].b)/balls[i].slope;
 
     //get rid of balls
@@ -121,9 +122,8 @@ function collision(){
     for(let n = 0;n < targets.length; n ++){
       if(dist(balls[i].x, balls[i].y, targets[n].x, targets[n].y) <= balls[i].size/2 + targets[n].diameter/2){
         targets.splice(n,1);
-        console.log(true)
+        console.log(true);
       }
-      console.log(n,i)
     }
   }
 }
