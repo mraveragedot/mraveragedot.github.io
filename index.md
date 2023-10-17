@@ -7,6 +7,7 @@
 -[Ball Array](03.ball-array)
 -[Perlin Noise Ball](04.noise-ball)
 -[translate rotate](05.rotation)
+-[Images and Sound](06.sounds-images)
 
 
 ## projects
