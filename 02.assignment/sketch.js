@@ -16,7 +16,19 @@ let ball;
 let balls = [];
 let Sx;
 let Sy;
+let field;
+let backgroundSound;
+let vicSound;
+let scalor;
 
+
+function preload(){
+  field = loadImage("country field.png");
+  vicSound = loadSound("victorySound.mp3");
+  backgroundSound = loadSound("background_music_loop.mp3");
+  backgroundSound.setVolume(0.5);
+  vicSound.setVolume(1.0);
+}
 
 
 function setup() {
