@@ -7,7 +7,7 @@
 // the players curser, added collision to see if the cannball hits the targets, also used srokeWeight to make the cannon a actual cannon, 
 // used splice to take out a spicific thing in the array instead of just off the end of the array.
 
-
+let endWords;
 let bar = [0,255,0];
 let font;
 let mode = 1;
@@ -26,8 +26,10 @@ let vicSound;
 let scalor;
 let start;
 let gametime;
-let started = 30000
-let targetsHit = 0
+let started = 30000;
+let targetsHit = 0;
+let highscore = 0;
+let ballsShot = 0;
 
 
 function preload(){
@@ -36,7 +38,7 @@ function preload(){
   backgroundSound = loadSound("background_music_loop.mp3");
   backgroundSound.setVolume(0.5);
   vicSound.setVolume(1.0);
-  font = loadFont("Fridge.ttf")
+  font = loadFont("Fridge.ttf");
 }
 
 
@@ -49,7 +51,7 @@ function setup() {
     y: height/9 * 4,
     width: width/9 * 7,
     height: height/10 * 3
-  }  
+  };
 }
 
 function draw() {
@@ -104,6 +106,7 @@ function moveTargets(){
       //getting rid of targets
       if (targets[i].x > width + targets[i].diameter || targets[i].x < 0 - targets[i].diameter){
         targets.splice(i, 1);
+        targetsHit ++;
       }
     }
   }
@@ -112,10 +115,11 @@ function moveTargets(){
 
 function mouseClicked(){
   spawnBall();
+  ballsShot ++;
   if(mode === 1){
     if(mouseX >= start.x && mouseX <= start.x + start.width && mouseY >= start.y && mouseY <= start.y + start.height){
-      mode = 2
-      started = millis()
+      mode = 2;
+      started = millis();
     }
   }
 
@@ -137,15 +141,19 @@ function spawnBall(){
 
 function moveBall(){
   fill("red");
-  for(let i = 0;i < balls.length;i ++){
-    circle(balls[i].x,balls[i].y,balls[i].size);
-    balls[i].y -= balls[i].speed;
-    balls[i].x = (balls[i].y-balls[i].b)/balls[i].slope;
-
-    //get rid of balls
-    if (balls[i].x > width || balls[i].x < 0 || balls[i].y < 0){
-      balls.splice(i,1);
+  if (balls.length > 0){
+    for(let i = 0;i < balls.length;i ++){
+      circle(balls[i].x,balls[i].y,balls[i].size);
+      console.log(balls[i].x,balls[i].y,balls[i].size);
+      balls[i].y -= balls[i].speed;
+      balls[i].x = (balls[i].y-balls[i].b)/balls[i].slope;
+  
+      //get rid of balls
+      if (balls[i].x > width || balls[i].x < 0 || balls[i].y < 0){
+        balls.splice(i,1);
+      }
     }
+
   }
 }
 
@@ -195,20 +203,35 @@ function startScreen(){
       image(field, 0,0,width,height);
     }
 
+    if(mode === 3){
+      let one = concat("times up press r to restart. your highscore is ", str(highscore));
+      let two = concat(one, " your accuracy was ");
+      endWords = concat(two, str(targetsHit / ballsShot));
+      textAlign(LEFT);
+      text(endWords, 0, height/2);
+    }
+
   }
 }
 
 
 function game(){
-  if (millis() > gametime + started){
-    mode = 3;
+  if (mode === 2){
+    if (millis() > gametime + started){
+      mode = 3;
+    }
+    fill(0);
+    textSize(width/30);
+    textAlign(LEFT, BOTTOM);
+    let james = concat("Time: ", str(time));
+    text(james, 0 + width / 30, height);
+    
+    textAlign(RIGHT, BOTTOM);
+    text(concat("Points: ", str(targetsHit)), width- width / 30, height);
+
+    if(time < 0){
+      mode = 3;
+    }
   }
-  fill(0)
-  textSize(width/20);
-  textAlign(LEFT, BOTTOM);
-  text(concat("Time: ", str(30 - round(millis - started))),0 + width/30, 0);
-  
-  textAlign(RIGHT, BOTTOM);
-  text(concat("Points: ", str(targetsHit)), width- width / 30, height);
 }
 
