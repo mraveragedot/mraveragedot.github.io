@@ -66,7 +66,7 @@ function draw() {
     drawCannon();
     collision();
   }
-
+  text(str(82),width/2,height/2);
 }
 
 function makeTargets(){
@@ -114,7 +114,9 @@ function moveTargets(){
 }
 
 function mouseClicked(){
-  spawnBall();
+  if (mode ===2 ){
+    spawnBall();
+  }
   ballsShot ++;
   if(mode === 1){
     if(mouseX >= start.x && mouseX <= start.x + start.width && mouseY >= start.y && mouseY <= start.y + start.height){
@@ -144,7 +146,6 @@ function moveBall(){
   if (balls.length > 0){
     for(let i = 0;i < balls.length;i ++){
       circle(balls[i].x,balls[i].y,balls[i].size);
-      console.log(balls[i].x,balls[i].y,balls[i].size);
       balls[i].y -= balls[i].speed;
       balls[i].x = (balls[i].y-balls[i].b)/balls[i].slope;
   
@@ -182,7 +183,7 @@ function startScreen(){
     fill(0);
     textFont(font);
     textAlign(CENTER, CENTER);
-    textSize(start.height * 0.7);
+    textSize(start.width * 0.1);
     text("TARGET SHOOTING", start.titleX, start.titleY, start.width, start.height);
     textSize(start.height);
     
@@ -199,10 +200,7 @@ function startScreen(){
       bar = [0,255,0];
     }
 
-    if (mode ===2){
-      image(field, 0,0,width,height);
-    }
-
+    
     if(mode === 3){
       let one = concat("times up press r to restart. your highscore is ", str(highscore));
       let two = concat(one, " your accuracy was ");
@@ -211,6 +209,10 @@ function startScreen(){
       text(endWords, 0, height/2);
     }
 
+  }
+
+  if (mode === 2){
+    image(field, 0 - width/50,0, width + width / 50 *2 ,height + height/50);
   }
 }
 
@@ -225,10 +227,11 @@ function game(){
     textAlign(LEFT, BOTTOM);
     let james = concat("Time: ", str(time));
     text(james, 0 + width / 30, height);
-    
+    // console.log(james);
+
     textAlign(RIGHT, BOTTOM);
     text(concat("Points: ", str(targetsHit)), width- width / 30, height);
-
+    // console.log(concat("Points: ", str(targetsHit)))
     if(time < 0){
       mode = 3;
     }
