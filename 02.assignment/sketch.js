@@ -66,7 +66,6 @@ function draw() {
     drawCannon();
     collision();
   }
-  text(str(82),width/2,height/2);
 }
 
 function makeTargets(){
@@ -201,18 +200,25 @@ function startScreen(){
     }
 
     
-    if(mode === 3){
-      let one = concat("times up press r to restart. your highscore is ", str(highscore));
-      let two = concat(one, " your accuracy was ");
-      endWords = concat(two, str(targetsHit / ballsShot));
-      textAlign(LEFT);
-      text(endWords, 0, height/2);
-    }
-
+    
+  }
+  
+  
+  if (mode === 2 || mode === 3){
+    image(field, 0 - width/50,0, width + width / 50 *2 ,height + height/50);
+    textFont("arial");
   }
 
-  if (mode === 2){
-    image(field, 0 - width/50,0, width + width / 50 *2 ,height + height/50);
+  if (mode === 3){
+    textWrap(WORD);
+    textAlign(LEFT);
+    textSize(width/50);
+    if(targetsHit > highscore){
+      highscore = targetsHit;
+    }
+
+    text("times up press r to restart. Your highscore is "+ str(highscore) + " your accuracy was " + str(round(targetsHit / ballsShot*100),4)+"%", 1.00, height/2);
+    
   }
 }
 
@@ -225,7 +231,8 @@ function game(){
     fill(0);
     textSize(width/30);
     textAlign(LEFT, BOTTOM);
-    let james = concat("Time: ", str(time));
+    let james = "Time: " + time;
+    console.log(james);
     text(james, 0 + width / 30, height);
     // console.log(james);
 
