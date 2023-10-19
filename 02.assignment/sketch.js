@@ -105,7 +105,6 @@ function moveTargets(){
       //getting rid of targets
       if (targets[i].x > width + targets[i].diameter || targets[i].x < 0 - targets[i].diameter){
         targets.splice(i, 1);
-        targetsHit ++;
       }
     }
   }
@@ -217,7 +216,7 @@ function startScreen(){
       highscore = targetsHit;
     }
 
-    text("times up press r to restart. Your highscore is "+ str(highscore) + " your accuracy was " + str(round(targetsHit / ballsShot*100),4)+"%", 1.00, height/2);
+    text("Times up press r to restart. Your highscore is "+ str(highscore) + " your accuracy was " + str(round(targetsHit / ballsShot*100),4)+"%", 1.00, height/2);
     
   }
 }
@@ -232,16 +231,22 @@ function game(){
     textSize(width/30);
     textAlign(LEFT, BOTTOM);
     let james = "Time: " + time;
-    console.log(james);
     text(james, 0 + width / 30, height);
-    // console.log(james);
 
     textAlign(RIGHT, BOTTOM);
     text(concat("Points: ", str(targetsHit)), width- width / 30, height);
-    // console.log(concat("Points: ", str(targetsHit)))
     if(time < 0){
       mode = 3;
     }
   }
 }
 
+function keyTyped() {
+  if (key === 'r') {
+    mode = 2;
+    started = millis();
+    time = 30;
+    targetsHit = 0;
+    ballsShot = 0;
+  }
+}
