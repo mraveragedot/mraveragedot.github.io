@@ -12,7 +12,7 @@ function setup() {
 function draw() {
   background(220);
   if (keyIsDown(RIGHT_ARROW)){
-    if (xOFFset < terrain.length - 1000){
+    if (xOFFset + width < terrain.length - 100){
       xOFFset += 100;
     }
   }
@@ -49,6 +49,6 @@ function displayRectangles(){
 function moveCharacter(){
   rectMode(BOTTOM);
   for(let i = xOFFset; i < width + xOFFset; i ++){
-    rect(50, height - terrain[i].height, 5, -5);
+    rect(50, height - terrain[i].height, 5, 5);
   }
 }
