@@ -1,8 +1,18 @@
 // terrain gen
 //oct 23
 
+let time;
 let terrain = [];
 let xOFFset = 0;
+let characterScale = 10
+let grimbo;
+let characterSpot = 50
+let speed = 100
+
+function preload(){
+  grimbo = loadImage("grimbo.png");
+
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -12,23 +22,23 @@ function setup() {
 function draw() {
   background(220);
   if (keyIsDown(RIGHT_ARROW)){
-    if (xOFFset + width < terrain.length - 100){
-      xOFFset += 100;
+    if (xOFFset + width < terrain.length - speed){
+      xOFFset += speed;
     }
   }
 
   if(keyIsDown(LEFT_ARROW)){
-    if (xOFFset > 5){
-      xOFFset -= 100;
+    if (xOFFset > speed){
+      xOFFset -= speed;
     }
   }
   
   displayRectangles();
-  moveCharacter();
+  // moveCharacter();
 }
 
 function spawnRectangles(){
-  let time = 0;
+  time = 0;
   for (let x = 0; x < 10000; x++){
     let h = noise(time) * height;
     let thisRect = {
@@ -46,9 +56,8 @@ function displayRectangles(){
   }
 }
 
-function moveCharacter(){
-  rectMode(BOTTOM);
-  for(let i = xOFFset; i < width + xOFFset; i ++){
-    rect(50, height - terrain[i].height, 5, 5);
-  }
-}
+// function moveCharacter(){
+//   imageMode(BOTTOM);
+//   image(grimbo, 0.001 * characterSpot, noise(time) * height ,grimbo.width * characterScale, grimbo.height*);
+
+// }
