@@ -4,10 +4,10 @@
 let time;
 let terrain = [];
 let xOFFset = 0;
-let characterScale = 10
+let characterScale = 10;
 let grimbo;
-let characterSpot = 50
-let speed = 100
+let characterSpot = 50;
+let speed = 100;
 
 function preload(){
   grimbo = loadImage("grimbo.png");
