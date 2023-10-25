@@ -1,22 +1,26 @@
-// 2D array grid
-// nohl
+// 2D Array Grid
+// Dan Schellenberg
+// Oct 24, 2023
+
+// let grid = [[1, 0, 0, 1],
+//             [0, 0, 1, 1],
+//             [1, 1, 0, 1],
+//             [0, 1, 1, 1]];
 
 let grid;
 let cellSize;
-const GRID_SIZE = 4;
+const GRID_SIZE = 15;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  if (width > height){
-    cellSize = height/GRID_SIZE;
-  }
-  else{
+
+  if (height > width) {
     cellSize = width/GRID_SIZE;
   }
-  
+  else {
+    cellSize = height/GRID_SIZE;
+  }
   grid = generateRandomGrid(GRID_SIZE, GRID_SIZE);
-
-  generateRandomGrid();
 }
 
 function draw() {
@@ -24,36 +28,48 @@ function draw() {
   displayGrid();
 }
 
-function keyTyped(){
-  if (key === "r"){
-    grid = generateRandomGrid(GRID_SIZE, GRID_SIZE);
-  }
+function mousePressed(){
+  let y = Math.floor(mouseY/cellSize);
+  let x = Math.floor(mouseX/cellSize);
 
-  if (key === "e"){
-    grid = generateEmptygrid(GRID_SIZE, GRID_SIZE);
+  if (grid[y][x] === 0) {
+    grid[y][x] = 1;
+  }
+  else if (grid[y][x] === 1){
+    grid[y][x] = 0;
   }
 }
 
-function displayGrid(){
-  for (let y = 0;y < GRID_SIZE; y ++) {
-    for (let x = 0; x < GRID_SIZE; x ++){
-      if (grid[y][x] === 1){
-        fill("black");
-      }
-      else{
+function keyTyped() {
+  if (key === "r") {
+    grid = generateRandomGrid(GRID_SIZE, GRID_SIZE);
+  }
+  else if (key === "e") {
+    grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
+  }
+}
+
+function displayGrid() {
+  for (let y = 0; y < GRID_SIZE; y++) {
+    for (let x = 0; x < GRID_SIZE; x++) {
+      if (grid[y][x] === 0) {
         fill("white");
+      }
+      if (grid[y][x] === 1) {
+        fill("black");
       }
       rect(x * cellSize, y * cellSize, cellSize, cellSize);
     }
   }
 }
 
-function generateRandomGrid(cols, rows){
+
+function generateRandomGrid(cols, rows) {
   let randomArray = [];
-  for (let y = 0; y < cols; y ++){
+  for (let y = 0; y < cols; y++) {
     randomArray.push([]);
     for (let x = 0; x < rows; x++) {
-      if (random(100) < 50){
+      if (random(100) < 50) {
         randomArray[y].push(0);
       }
       else {
@@ -64,22 +80,14 @@ function generateRandomGrid(cols, rows){
   return randomArray;
 }
 
-function generateEmptygrid(cols, rows){
+function generateEmptyGrid(cols, rows) {
   let randomArray = [];
-  for (let y = 0; y < cols; y ++){
+  for (let y = 0; y < cols; y++) {
     randomArray.push([]);
     for (let x = 0; x < rows; x++) {
       randomArray[y].push(0);
     }
   }
   return randomArray;
-}
-
-function mousePressed(){
-  for (let y = 0;y < GRID_SIZE; y ++) {
-    for (let x = 0; x < GRID_SIZE; x ++){
-      if (mouseX < )
-    }
-  }
 }
 
