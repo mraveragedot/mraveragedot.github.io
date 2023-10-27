@@ -57,7 +57,7 @@ function nextTurn(){
 
       //look at all cells in 3x3 grid
       for(let i = -1; i <= 1; i ++){
-        for(let j = -1; i <=1; j ++){
+        for(let j = -1; j <=1; j ++){
 
           //detect edge cases
           if(y+i >= 0 && y + i < GRID_SIZE && x + j >= 0 && x + j < GRID_SIZE){
@@ -84,7 +84,7 @@ function nextTurn(){
       if (grid[y][x] === 0) { //was dead
         if (neighbours === 3){
           //new birth
-          nextTurnGrid[y][x] === 1;
+          nextTurnGrid[y][x] = 1;
         }
         else{
           //stay dead
