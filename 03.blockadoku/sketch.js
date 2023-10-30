@@ -38,7 +38,7 @@ function displayGrid(cols, rows){
   for(let y = 0; y < cols; y ++){
     for (let x = 0; x < rows; x ++){
       if(grid[y][x] === 0){
-        if ( (y < 3 && x < 3 || x > 5) || (y > 2 && y < 6  && x > 2 && x < 6) || (y > 5 && x < 3 || x > 5) ){
+        if ( (y < 3 && (x < 3 || x > 5)) || (y > 2 && y < 6  && x > 2 && x < 6) || (y > 5 && (x < 3 || x > 5)) ){
           fill(150, 75, 0);
         }
         else{
