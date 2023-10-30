@@ -11,6 +11,8 @@
 -[Terrain Gen](07.terrain)
 -[2d Array](08.2d-Array)
 -[Grid neighbours](09.neighbours)
+-[game of life](10.game.of.life)
+-[character in grid](11.character)
 
 
 ## projects
