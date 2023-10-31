@@ -8,6 +8,9 @@
 const GRID_SIZE = 9;
 let grid = [];
 let cellSize;
+let blocks  = [];
+let line = [1,1,1];
+let square = [[1,1][1,1]];
 
 
 function setup() {
@@ -50,5 +53,11 @@ function displayGrid(cols, rows){
       }
       rect(x * cellSize + width/3, y * cellSize + height/6, cellSize, cellSize);
     }
+  }
+}
+
+function make blocks(){
+  if (blocks === 0){
+
   }
 }
