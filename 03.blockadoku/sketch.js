@@ -9,8 +9,9 @@ const GRID_SIZE = 9;
 let grid = [];
 let cellSize;
 let blocks  = [];
-let line = [1,1,1];
-let square = [[1,1][1,1]];
+let theLine = [1,1,1];
+let theSquare = [[1,1],[1,1]];
+let haveLine = true;
 
 
 function setup() {
@@ -56,8 +57,21 @@ function displayGrid(cols, rows){
   }
 }
 
-function make blocks(){
-  if (blocks === 0){
+function mouseClicked(){
+  if (haveLine === true){
+    placeBlock(theLine);
+  }
+}
 
+function placeBlock(theShape){
+  let place;
+  let x = floor((mouseX - width/3) / cellSize);
+  let y = floor((mouseY - height/6) / cellSize);
+  for(let i = 0; i < theShape.length; i ++){
+    for(let j = 0; j < theShape[i].length; j ++){
+      grid[y+i][x+j] = 1;
+      console.log(i,j);
+
+    }
   }
 }
