@@ -59,6 +59,7 @@ function setup() {
 
 function draw() {
   background(220);
+  doYouHaveShape()  
   displayGrid(GRID_SIZE, GRID_SIZE);
 }
 
@@ -87,10 +88,103 @@ function displayGrid(cols, rows){
       else if (grid[y][x] === 1){
         fill(73, 32, 0);
       }
+      else if (grid[y][x] === 2){
+        fill(100,100,100)
+      }
       rect(x * cellSize + width/3, y * cellSize + height/6, cellSize, cellSize);
+      if (grid[y][x] === 2){
+        grid[y][x] = 0;
+      }
     }
   }
 }
+
+function doYouHaveShape(){
+  if (haveShortestHor){
+    displayShape(shortestHor);
+  }
+  else if (haveShortHor){
+    displayShape(shortHor);
+  }
+  else if (haveLongHor){
+    displayShape(longHor);
+  }
+  else if (haveShortestVer){
+    displayShape(shortVer);
+  }
+  else if (haveShortVer){
+    displayShape(shortVer);
+  }
+  else if (haveLongVer){
+    displayShape(longVer);
+  }
+  else if (haveNWL){
+    displayShape(NWL);
+  }
+  else if (haveNEL){
+    displayShape(NEL);
+  }
+  else if (haveSWL){
+    displayShape(SWL);
+  }
+  else if (haveSEL){
+    displayShape(SEL);
+  }
+  else if (haveUpT){
+    displayShape(upT);
+  }
+  else if (haveDownT){
+    displayShape(downT);
+  }
+  else if (haveLeftT){
+    displayShape(leftT);
+  }
+  else if (haveRightT){
+    displayShape(rightT);
+  }
+  else if (haveTheSquare){
+    displayShape(theSquare);
+  }
+  else if (haveSavior){
+    displayShape(savior);
+  }
+
+}
+
+function displayShape(theShape){
+  let place = true;
+  let x = floor((mouseX - width/3) / cellSize);
+  let y = floor((mouseY - height/6) / cellSize);
+  if (x + theShape[0].length > GRID_SIZE || y + theShape.length > GRID_SIZE){
+    place = false;
+  }
+  
+  if (place){
+    for(let i = 0; i < theShape.length; i ++){
+
+      for(let j = 0; j < theShape[i].length; j ++){
+        if (grid[y+i][x+j] !== 0 && theShape[i][j] !== 0){
+          place = false;
+        }
+      }
+    }
+  }
+  if (place){
+    for(let i = 0; i < theShape.length; i ++){
+
+      for(let j = 0; j < theShape[i].length; j ++){
+        if (theShape[i][j] !== 0){
+          grid[y+i][x+j] = theShape[i][j] + 1
+
+        }
+
+      }
+    }
+
+  }
+}
+
+
 
 function mouseClicked(){
   if (haveShortestHor){
@@ -186,13 +280,11 @@ function placeBlock(theShape, whatitis){
     for(let i = 0; i < theShape.length; i ++){
 
       for(let j = 0; j < theShape[i].length; j ++){
-        if (theShape[i][j] === 0){
+        if (theShape[i][j] !== 0){
+          grid[y+i][x+j] = theShape[i][j]
 
         }
-        else if (grid[y+i][x+j] = theShape[i][j]){
-          place = false;
-        }
-    
+
         console.log(3);
       }
     }
