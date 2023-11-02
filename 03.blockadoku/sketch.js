@@ -8,11 +8,45 @@
 const GRID_SIZE = 9;
 let grid = [];
 let cellSize;
-let blocks  = [];
-let theLine = [[1,1,1]];
+let shapes = []
+
+let shortestHor = [1,1];
+let shortHor = [[1,1,1]];
+let longHor = [[1,1,1,1,1]];
+let shortestVer = [[1],[1]];
+let shortVer = [[1],[1],[1]];
+let longVer = [[1],[1],[1],[1],[1]];
 let theSquare = [[1,1],[1,1]];
-let haveLine = false;
-let haveSquare = true;
+let NWL = [[1,1,1],[1,0,0],[1,0,0]];
+let SWL = [[1,0,0],[1,0,0],[1,1,1]];
+let NEL = [[1,1,1],[0,0,1],[0,0,1]];
+let SEL = [[0,0,1],[0,0,1],[1,1,1]];
+let leftT = [[0,1],[1,1],[0,1]];
+let rightT = [[1,0],[1,1],[1,0]];
+let upT = [[0,1,0],[1,1,1]];
+let downT = [[1,1,1],[0,1,0]];
+let savior = [[1]];
+
+let haveShortestHor = false;
+let haveShortHor = false;
+let haveLongHor = false;
+let haveShortestVer = false;
+let haveShortVer = false;
+let haveLongVer = false;
+let haveTheSquare = false;
+let haveNWL = false;
+let haveSWL = false;
+let haveNEL = false;
+let haveSEL = false;
+let haveLeftT = false;
+let haveRightT = false;
+let haveUpT = false;
+let haveDownT = false;
+let haveSavior = false;
+
+
+
+
 
 
 function setup() {
@@ -59,27 +93,124 @@ function displayGrid(cols, rows){
 }
 
 function mouseClicked(){
-  if (haveLine === true){
-    placeBlock(theLine);
+  if (haveShortestHor){
+    placeBlock(shortestHor,1);
+    haveShortestHor = !haveShortestHor
   }
-  else if (haveSquare === true){
-    placeBlock(theSquare);
+  else if (haveShortHor){
+    placeBlock(shortHor,2);
+    haveShortHor = !haveShortHor
   }
+  else if (haveLongHor){
+    placeBlock(longHor,3);
+    haveLongHor = !haveLongHor
+  }
+  else if (haveShortestVer){
+    placeBlock(shortVer,4);
+    haveShortestVer = !haveShortestVer
+  }
+  else if (haveShortVer){
+    placeBlock(shortVer,5);
+    haveShortVer = !haveShortVer
+  }
+  else if (haveLongVer){
+    placeBlock(longVer,6);
+    haveLongVer = !haveLongVer
+  }
+  else if (haveNWL){
+    placeBlock(NWL,7);
+    haveNWL = !haveNWL
+  }
+  else if (haveNEL){
+    placeBlock(NEL,8);
+    haveNEL = !haveNEL
+  }
+  else if (haveSWL){
+    placeBlock(SWL,9);
+    haveSWL = !haveSWL
+  }
+  else if (haveSEL){
+    placeBlock(SEL,10);
+    haveSEL = !haveSEL
+  }
+  else if (haveUpT){
+    placeBlock(upT,11);
+    haveUpT = !haveUpT
+  }
+  else if (haveDownT){
+    placeBlock(downT,12);
+    haveDownT = !haveDownT
+  }
+  else if (haveLeftT){
+    placeBlock(leftT,13);
+    haveLeftT = !haveLeftT
+  }
+  else if (haveRightT){
+    placeBlock(rightT,14);
+    haveRightT = !haveRightT
+  }
+  else if (haveTheSquare){
+    placeBlock(theSquare,15);
+    haveTheSquare = !haveTheSquare
+  }
+  else if (haveSavior){
+    placeBlock(savior,16);
+    haveSavior = !haveSavior
+  }
+
+  
 }
 
-function placeBlock(theShape){
-  let place;
+function placeBlock(theShape, whatitis){
+  let place = true;
   let x = floor((mouseX - width/3) / cellSize);
   let y = floor((mouseY - height/6) / cellSize);
+  if (x + theShape[0].length > GRID_SIZE || y + theShape.length > GRID_SIZE){
+    place = false;
+  }
+  
+  if (place){
+    for(let i = 0; i < theShape.length; i ++){
 
-  for(let i = 0; i < theShape.length; i ++){
+      console.log(1);
+      console.log(theShape);
+      for(let j = 0; j < theShape[i].length; j ++){
+        if (theShape[i][j] === 0){
 
-    console.log(1);
-    console.log(theShape);
-    for(let j = 0; j < theShape[i].length; j ++){
-      grid[y+i][x+j] = 1;
-
-      console.log(2)
+        }
+        else if (grid[y+i][x+j] !== 0){
+          place = false;
+        }
+      }
     }
+  }
+  console.log(place)
+  if (place){
+    for(let i = 0; i < theShape.length; i ++){
+
+      for(let j = 0; j < theShape[i].length; j ++){
+        if (theShape[i][j] === 0){
+
+        }
+        else if (grid[y+i][x+j] = theShape[i][j]){
+          place = false;
+        }
+    
+        console.log(3);
+      }
+    }
+
+  }
+  
+}
+
+function usableShapes(){
+  if (shapes.length === 0){
+    shapes.push(floor(random(1,16.999)))
+    shapes.push(floor(random(1,16.999)))
+    shapes.push(floor(random(1,16.999)))
+  }
+  for(let i = 0; i < shapes.length; i ++){
+    
   }
 }
