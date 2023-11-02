@@ -8,9 +8,9 @@
 const GRID_SIZE = 9;
 let grid = [];
 let cellSize;
-let shapes = []
+let shapes = [];
 
-let shortestHor = [1,1];
+let shortestHor = [[1,1]];
 let shortHor = [[1,1,1]];
 let longHor = [[1,1,1,1,1]];
 let shortestVer = [[1],[1]];
@@ -84,7 +84,7 @@ function displayGrid(cols, rows){
           fill(200, 125, 0);
         }
       }
-      else{
+      else if (grid[y][x] === 1){
         fill(73, 32, 0);
       }
       rect(x * cellSize + width/3, y * cellSize + height/6, cellSize, cellSize);
@@ -95,67 +95,67 @@ function displayGrid(cols, rows){
 function mouseClicked(){
   if (haveShortestHor){
     placeBlock(shortestHor,1);
-    haveShortestHor = !haveShortestHor
+    haveShortestHor = !haveShortestHor;
   }
   else if (haveShortHor){
     placeBlock(shortHor,2);
-    haveShortHor = !haveShortHor
+    haveShortHor = !haveShortHor;
   }
   else if (haveLongHor){
     placeBlock(longHor,3);
-    haveLongHor = !haveLongHor
+    haveLongHor = !haveLongHor;
   }
   else if (haveShortestVer){
     placeBlock(shortVer,4);
-    haveShortestVer = !haveShortestVer
+    haveShortestVer = !haveShortestVer;
   }
   else if (haveShortVer){
     placeBlock(shortVer,5);
-    haveShortVer = !haveShortVer
+    haveShortVer = !haveShortVer;
   }
   else if (haveLongVer){
     placeBlock(longVer,6);
-    haveLongVer = !haveLongVer
+    haveLongVer = !haveLongVer;
   }
   else if (haveNWL){
     placeBlock(NWL,7);
-    haveNWL = !haveNWL
+    haveNWL = !haveNWL;
   }
   else if (haveNEL){
     placeBlock(NEL,8);
-    haveNEL = !haveNEL
+    haveNEL = !haveNEL;
   }
   else if (haveSWL){
     placeBlock(SWL,9);
-    haveSWL = !haveSWL
+    haveSWL = !haveSWL;
   }
   else if (haveSEL){
     placeBlock(SEL,10);
-    haveSEL = !haveSEL
+    haveSEL = !haveSEL;
   }
   else if (haveUpT){
     placeBlock(upT,11);
-    haveUpT = !haveUpT
+    haveUpT = !haveUpT;
   }
   else if (haveDownT){
     placeBlock(downT,12);
-    haveDownT = !haveDownT
+    haveDownT = !haveDownT;
   }
   else if (haveLeftT){
     placeBlock(leftT,13);
-    haveLeftT = !haveLeftT
+    haveLeftT = !haveLeftT;
   }
   else if (haveRightT){
     placeBlock(rightT,14);
-    haveRightT = !haveRightT
+    haveRightT = !haveRightT;
   }
   else if (haveTheSquare){
     placeBlock(theSquare,15);
-    haveTheSquare = !haveTheSquare
+    haveTheSquare = !haveTheSquare;
   }
   else if (haveSavior){
     placeBlock(savior,16);
-    haveSavior = !haveSavior
+    haveSavior = !haveSavior;
   }
 
   
@@ -175,16 +175,13 @@ function placeBlock(theShape, whatitis){
       console.log(1);
       console.log(theShape);
       for(let j = 0; j < theShape[i].length; j ++){
-        if (theShape[i][j] === 0){
-
-        }
-        else if (grid[y+i][x+j] !== 0){
+        if (grid[y+i][x+j] !== 0 && theShape[i][j] !== 0){
           place = false;
         }
       }
     }
   }
-  console.log(place)
+  console.log(place);
   if (place){
     for(let i = 0; i < theShape.length; i ++){
 
@@ -206,9 +203,9 @@ function placeBlock(theShape, whatitis){
 
 function usableShapes(){
   if (shapes.length === 0){
-    shapes.push(floor(random(1,16.999)))
-    shapes.push(floor(random(1,16.999)))
-    shapes.push(floor(random(1,16.999)))
+    shapes.push(floor(random(1,16.999)));
+    shapes.push(floor(random(1,16.999)));
+    shapes.push(floor(random(1,16.999)));
   }
   for(let i = 0; i < shapes.length; i ++){
     
