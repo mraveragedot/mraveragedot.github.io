@@ -7,8 +7,10 @@
 
 const GRID_SIZE = 9;
 let grid = [];
+let shapeGrid = [];
 let cellSize;
 let shapes = [];
+
 
 let shortestHor = [[1,1]];
 let shortHor = [[1,1,1]];
@@ -52,16 +54,40 @@ let haveSavior = false;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   grid = createEmptyGrid();
+  shapeGrid = createShapeGrid();
     
   cellSize = height / 18;
 
 }
 
 function draw() {
-  background(220);
-  doYouHaveShape()  
+  background(80,47,13);
+  doYouHaveShape();  
   displayGrid(GRID_SIZE, GRID_SIZE);
+  displayShapeGrid(GRID_SIZE/3, GRID_SIZE);
+  usableShapes();
 }
+
+function displayShapeGrid(rows, cols){
+  for(let y = 0; y < rows; y ++){
+    for (let x = 0; x < cols; x ++){
+      if(shapeGrid[y][x] === 0){
+        if (x < 3 || x > 5){
+          fill(139,139,59);
+        }
+        else{
+          fill(149,159,109);
+        }
+      }
+      else if (shapeGrid[y][x] === 1){
+        fill(73, 32, 0);
+      }
+      rect(x * cellSize + width/3, height - cellSize*4 + y * cellSize, cellSize, cellSize);
+    }
+  }
+  
+}
+
 
 function createEmptyGrid(){
   let emptyGrid = [];
@@ -74,10 +100,23 @@ function createEmptyGrid(){
   return emptyGrid;
 }
 
+function createShapeGrid(){
+  let emptyGrid = [];
+  for(let y = 0; y < GRID_SIZE/3; y++){
+    emptyGrid.push([]);
+    for (let x = 0; x < GRID_SIZE; x ++){
+      emptyGrid[y].push(0);
+    }
+  }
+  return emptyGrid;
+}
+
+
 function displayGrid(cols, rows){
   for(let y = 0; y < cols; y ++){
     for (let x = 0; x < rows; x ++){
       if(grid[y][x] === 0){
+        // eslint-disable-next-line no-extra-parens
         if ( (y < 3 && (x < 3 || x > 5)) || (y > 2 && y < 6  && x > 2 && x < 6) || (y > 5 && (x < 3 || x > 5)) ){
           fill(150, 75, 0);
         }
@@ -89,7 +128,7 @@ function displayGrid(cols, rows){
         fill(73, 32, 0);
       }
       else if (grid[y][x] === 2){
-        fill(100,100,100)
+        fill(100,100,100);
       }
       rect(x * cellSize + width/3, y * cellSize + height/6, cellSize, cellSize);
       if (grid[y][x] === 2){
@@ -174,7 +213,7 @@ function displayShape(theShape){
 
       for(let j = 0; j < theShape[i].length; j ++){
         if (theShape[i][j] !== 0){
-          grid[y+i][x+j] = theShape[i][j] + 1
+          grid[y+i][x+j] = theShape[i][j] + 1;
 
         }
 
@@ -281,7 +320,7 @@ function placeBlock(theShape, whatitis){
 
       for(let j = 0; j < theShape[i].length; j ++){
         if (theShape[i][j] !== 0){
-          grid[y+i][x+j] = theShape[i][j]
+          grid[y+i][x+j] = theShape[i][j];
 
         }
 
@@ -300,6 +339,5 @@ function usableShapes(){
     shapes.push(floor(random(1,16.999)));
   }
   for(let i = 0; i < shapes.length; i ++){
-    
   }
 }
