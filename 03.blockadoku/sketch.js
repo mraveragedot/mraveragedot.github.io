@@ -9,6 +9,7 @@ const GRID_SIZE = 9;
 let grid = [];
 let shapeGrid = [];
 let cellSize;
+let otherCellSize;
 let shapes = [];
 
 
@@ -57,6 +58,7 @@ function setup() {
   shapeGrid = createShapeGrid();
     
   cellSize = height / 18;
+  otherCellSize = height / 36;
 
 }
 
@@ -64,7 +66,7 @@ function draw() {
   background(80,47,13);
   doYouHaveShape();  
   displayGrid(GRID_SIZE, GRID_SIZE);
-  displayShapeGrid(GRID_SIZE/3, GRID_SIZE);
+  displayShapeGrid(5, 18);
   usableShapes();
 }
 
@@ -72,7 +74,7 @@ function displayShapeGrid(rows, cols){
   for(let y = 0; y < rows; y ++){
     for (let x = 0; x < cols; x ++){
       if(shapeGrid[y][x] === 0){
-        if (x < 3 || x > 5){
+        if (x < 6 || x > 11){
           fill(139,139,59);
         }
         else{
@@ -82,7 +84,7 @@ function displayShapeGrid(rows, cols){
       else if (shapeGrid[y][x] === 1){
         fill(73, 32, 0);
       }
-      rect(x * cellSize + width/3, height - cellSize*4 + y * cellSize, cellSize, cellSize);
+      rect(x * otherCellSize + width/3 , height - cellSize*4 + y * otherCellSize, otherCellSize, otherCellSize);
     }
   }
   
@@ -102,9 +104,9 @@ function createEmptyGrid(){
 
 function createShapeGrid(){
   let emptyGrid = [];
-  for(let y = 0; y < GRID_SIZE/3; y++){
+  for(let y = 0; y < 5; y++){
     emptyGrid.push([]);
-    for (let x = 0; x < GRID_SIZE; x ++){
+    for (let x = 0; x < 18; x ++){
       emptyGrid[y].push(0);
     }
   }
@@ -334,10 +336,73 @@ function placeBlock(theShape, whatitis){
 
 function usableShapes(){
   if (shapes.length === 0){
-    shapes.push(floor(random(1,16.999)));
-    shapes.push(floor(random(1,16.999)));
-    shapes.push(floor(random(1,16.999)));
+    shapes.push(floor(random(1, 17)));
+    shapes.push(floor(random(1, 17)));
+    shapes.push(floor(random(1, 17)));
   }
   for(let i = 0; i < shapes.length; i ++){
+    if (shapes[i] === 1){
+      displayItems(shortestHor, i);
+    }
+    else if (shapes[i] === 2){
+      displayItems(shortHor, i);
+    }
+    else if (shapes[i] === 3){
+      displayItems(longHor, i);
+    }
+    else if (shapes[i] === 4){
+      displayItems(shortVer, i);
+    }
+    else if (shapes[i] === 5){
+      displayItems(shortVer, i);
+    }
+    else if (shapes[i] === 6){
+      displayItems(longVer, i);
+    }
+    else if (shapes[i] === 7){
+      displayItems(NWL, i);
+    }
+    else if (shapes[i] === 8){
+      displayItems(NEL, i);
+    }
+    else if (shapes[i] === 9){
+      displayItems(SWL, i);
+    }
+    else if (shapes[i] === 10){
+      displayItems(SEL, i);
+    }
+    else if (shapes[i] === 11){
+      displayItems(upT, i);
+    }
+    else if (shapes[i] === 12){
+      displayItems(downT, i);
+    }
+    else if (shapes[i] === 13){
+      displayItems(leftT, i);
+    }
+    else if (shapes[i] === 14){
+      displayItems(rightT, i);
+    }
+    else if (shapes[i] === 15){
+      displayItems(theSquare, i);
+    }
+    else if (shapes[i] === 16){
+      displayItems(savior, i);
+    }
   }
+}
+
+
+function displayItems(theShape , box){
+  
+  for(let i = 0; i < theShape.length; i ++){
+
+    for(let j = 0; j < theShape[i].length; j ++){
+      if (theShape[i][j] !== 0){
+        shapeGrid[i][box*6 + j] = theShape[i][j];
+      }
+
+    }
+  }
+
 }
