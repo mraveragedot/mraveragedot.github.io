@@ -11,7 +11,7 @@ let shapeGrid = [];
 let cellSize;
 let otherCellSize;
 let shapes = [];
-let haveBlock = false
+let haveBlock = false;
 
 
 let shortestHor = [[1,1]];
@@ -88,6 +88,7 @@ function displayShapeGrid(rows, cols){
       rect(x * otherCellSize + width/3 , height - cellSize*4 + y * otherCellSize, otherCellSize, otherCellSize);
     }
   }
+  shapeGrid = createShapeGrid();
   
 }
 
@@ -197,20 +198,21 @@ function displayShape(theShape){
   let place = true;
   let x = floor((mouseX - width/3) / cellSize);
   let y = floor((mouseY - height/6) / cellSize);
-  if (x + theShape[0].length > GRID_SIZE || y + theShape.length > GRID_SIZE){
+  if (x + theShape[0].length > GRID_SIZE || y + theShape.length > GRID_SIZE || x < 0 || y <0){
     place = false;
   }
   
   if (place){
     for(let i = 0; i < theShape.length; i ++){
-
       for(let j = 0; j < theShape[i].length; j ++){
+
         if (grid[y+i][x+j] !== 0 && theShape[i][j] !== 0){
           place = false;
         }
       }
     }
   }
+
   if (place){
     for(let i = 0; i < theShape.length; i ++){
 
@@ -224,12 +226,13 @@ function displayShape(theShape){
     }
 
   }
+
 }
 
 
 
 function mouseClicked(){
-  if (!haveblock){
+  if (!haveBlock){
     giveShape();
 
   }
@@ -332,6 +335,7 @@ function placeBlock(theShape, whatitis){
       for(let j = 0; j < theShape[i].length; j ++){
         if (theShape[i][j] !== 0){
           grid[y+i][x+j] = theShape[i][j];
+          haveBlock = false;
 
         }
 
@@ -340,11 +344,15 @@ function placeBlock(theShape, whatitis){
     }
 
   }
+  if (!place){
+    haveBlock = false;
+    shapes.push(whatitis);
+  }
   
 }
 
 function usableShapes(){
-  if (shapes.length === 0){
+  if (shapes.length === 0 && !haveBlock){
     shapes.push(floor(random(1, 17)));
     shapes.push(floor(random(1, 17)));
     shapes.push(floor(random(1, 17)));
@@ -417,9 +425,79 @@ function displayItems(theShape , box){
 }
 
 function giveShape(){
-  let x = floor((mouseX - width/3) / shapeCellSize);
-  let y = floor((mouseY - height - cellSize*4) / shapeCellSize);
+  let x = floor((mouseX - width/3) / otherCellSize);
+  let y = floor((mouseY - height - cellSize*4) / otherCellSize);
 
-  console.log(x,y)
+  if (x >= 0 && x <= 5 && y <= -12 && y >= -16){
+    haveBlock = true;
+    makeHaveShape(shapes[0]);
+    shapes.splice(0,1);
+  }
+  else if (x >= 6 && x <= 11 && y <= -12 && y >= -16){
+    haveBlock = true;
+    makeHaveShape(shapes[1]);
+    shapes.splice(1,1);
+  }
+  else if (x >= 12 && x <= 17 && y <= -12 && y >= -16){
+    haveBlock = true;
+    makeHaveShape(shapes[2]);
+    shapes.splice(2,1);
+  }
 
+  
+
+  console.log(x,y);
+
+}
+
+function makeHaveShape(whereInShape){
+  console.log(whereInShape);
+  if(whereInShape === 1){
+    haveShortestHor = true;
+  }
+  if(whereInShape === 2){
+    haveShortHor = true;
+  }
+  if(whereInShape === 3){
+    haveLongHor = true;
+  }
+  if(whereInShape === 4){
+    haveShortestVer = true;
+  }
+  if(whereInShape === 5){
+    haveShortVer = true;
+  }
+  if(whereInShape === 6){
+    haveLongVer = true;
+  }
+  if(whereInShape === 7){
+    haveNWL = true;
+  }
+  if(whereInShape === 8){
+    haveNEL = true;
+  }
+  if(whereInShape === 9){
+    haveSWL = true;
+  }
+  if(whereInShape === 10){
+    haveSEL = true;
+  }
+  if(whereInShape === 11){
+    haveUpT = true;
+  }
+  if(whereInShape === 12){
+    haveUpT = true;
+  }
+  if(whereInShape === 13){
+    haveLeftT = true;
+  }
+  if(whereInShape === 14){
+    haveRightT = true;
+  }
+  if(whereInShape === 15){
+    haveTheSquare = true;
+  }
+  if(whereInShape === 16){
+    haveSavior = true;
+  }
 }
