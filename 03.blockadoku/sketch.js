@@ -11,6 +11,7 @@ let shapeGrid = [];
 let cellSize;
 let otherCellSize;
 let shapes = [];
+let haveBlock = false
 
 
 let shortestHor = [[1,1]];
@@ -228,69 +229,77 @@ function displayShape(theShape){
 
 
 function mouseClicked(){
-  if (haveShortestHor){
-    placeBlock(shortestHor,1);
-    haveShortestHor = !haveShortestHor;
+  if (!haveblock){
+    giveShape();
+
   }
-  else if (haveShortHor){
-    placeBlock(shortHor,2);
-    haveShortHor = !haveShortHor;
-  }
-  else if (haveLongHor){
-    placeBlock(longHor,3);
-    haveLongHor = !haveLongHor;
-  }
-  else if (haveShortestVer){
-    placeBlock(shortVer,4);
-    haveShortestVer = !haveShortestVer;
-  }
-  else if (haveShortVer){
-    placeBlock(shortVer,5);
-    haveShortVer = !haveShortVer;
-  }
-  else if (haveLongVer){
-    placeBlock(longVer,6);
-    haveLongVer = !haveLongVer;
-  }
-  else if (haveNWL){
-    placeBlock(NWL,7);
-    haveNWL = !haveNWL;
-  }
-  else if (haveNEL){
-    placeBlock(NEL,8);
-    haveNEL = !haveNEL;
-  }
-  else if (haveSWL){
-    placeBlock(SWL,9);
-    haveSWL = !haveSWL;
-  }
-  else if (haveSEL){
-    placeBlock(SEL,10);
-    haveSEL = !haveSEL;
-  }
-  else if (haveUpT){
-    placeBlock(upT,11);
-    haveUpT = !haveUpT;
-  }
-  else if (haveDownT){
-    placeBlock(downT,12);
-    haveDownT = !haveDownT;
-  }
-  else if (haveLeftT){
-    placeBlock(leftT,13);
-    haveLeftT = !haveLeftT;
-  }
-  else if (haveRightT){
-    placeBlock(rightT,14);
-    haveRightT = !haveRightT;
-  }
-  else if (haveTheSquare){
-    placeBlock(theSquare,15);
-    haveTheSquare = !haveTheSquare;
-  }
-  else if (haveSavior){
-    placeBlock(savior,16);
-    haveSavior = !haveSavior;
+
+  else if (haveBlock){
+
+    if (haveShortestHor){
+      placeBlock(shortestHor,1);
+      haveShortestHor = !haveShortestHor;
+    }
+    else if (haveShortHor){
+      placeBlock(shortHor,2);
+      haveShortHor = !haveShortHor;
+    }
+    else if (haveLongHor){
+      placeBlock(longHor,3);
+      haveLongHor = !haveLongHor;
+    }
+    else if (haveShortestVer){
+      placeBlock(shortVer,4);
+      haveShortestVer = !haveShortestVer;
+    }
+    else if (haveShortVer){
+      placeBlock(shortVer,5);
+      haveShortVer = !haveShortVer;
+    }
+    else if (haveLongVer){
+      placeBlock(longVer,6);
+      haveLongVer = !haveLongVer;
+    }
+    else if (haveNWL){
+      placeBlock(NWL,7);
+      haveNWL = !haveNWL;
+    }
+    else if (haveNEL){
+      placeBlock(NEL,8);
+      haveNEL = !haveNEL;
+    }
+    else if (haveSWL){
+      placeBlock(SWL,9);
+      haveSWL = !haveSWL;
+    }
+    else if (haveSEL){
+      placeBlock(SEL,10);
+      haveSEL = !haveSEL;
+    }
+    else if (haveUpT){
+      placeBlock(upT,11);
+      haveUpT = !haveUpT;
+    }
+    else if (haveDownT){
+      placeBlock(downT,12);
+      haveDownT = !haveDownT;
+    }
+    else if (haveLeftT){
+      placeBlock(leftT,13);
+      haveLeftT = !haveLeftT;
+    }
+    else if (haveRightT){
+      placeBlock(rightT,14);
+      haveRightT = !haveRightT;
+    }
+    else if (haveTheSquare){
+      placeBlock(theSquare,15);
+      haveTheSquare = !haveTheSquare;
+    }
+    else if (haveSavior){
+      placeBlock(savior,16);
+      haveSavior = !haveSavior;
+    }
   }
 
   
@@ -404,5 +413,13 @@ function displayItems(theShape , box){
 
     }
   }
+  
+}
+
+function giveShape(){
+  let x = floor((mouseX - width/3) / shapeCellSize);
+  let y = floor((mouseY - height - cellSize*4) / shapeCellSize);
+
+  console.log(x,y)
 
 }
