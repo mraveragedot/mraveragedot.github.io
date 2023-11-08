@@ -6,6 +6,7 @@
 // - describe what you did to take this project "above and beyond"
 
 const GRID_SIZE = 9;
+let points = 0
 let grid = [];
 let shapeGrid = [];
 let cellSize;
@@ -70,6 +71,15 @@ function draw() {
   displayShapeGrid(5, 18);
   usableShapes();
   clearGrid();
+  displayPoints();
+}
+
+function displayPoints(){
+  fill("black")
+  textSize(height/16)
+
+  text(str(points), width/3, height/16)
+  
 }
 
 function displayShapeGrid(rows, cols){
@@ -227,7 +237,6 @@ function displayShape(theShape){
     }
 
   }
-
 }
 
 
@@ -334,7 +343,8 @@ function placeBlock(theShape, whatitis){
         if (theShape[i][j] !== 0){
           grid[y+i][x+j] = theShape[i][j];
           haveBlock = false;
-
+          points += 1;
+          
         }
 
       }
@@ -551,6 +561,12 @@ function clearGrid(){
       }
     }
   }
+
+  let multiplier = clearColumn.length + clearGrid.length + clearRow.length
+  if( multiplier === 0){
+    multiplier = 1
+  }
+  points += (clearColumn.length * 30 + clearGrid.length * 30 + clearRow.length * 30) * multiplier;
 
   for(i = 0; i < clearRow.length; i ++){
     for(j = 0; j < 9; j ++){
