@@ -69,6 +69,7 @@ function draw() {
   displayGrid(GRID_SIZE, GRID_SIZE);
   displayShapeGrid(5, 18);
   usableShapes();
+  clearGrid();
 }
 
 function displayShapeGrid(rows, cols){
@@ -486,7 +487,7 @@ function makeHaveShape(whereInShape){
     haveUpT = true;
   }
   if(whereInShape === 12){
-    haveUpT = true;
+    haveDownT = true;
   }
   if(whereInShape === 13){
     haveLeftT = true;
@@ -499,5 +500,56 @@ function makeHaveShape(whereInShape){
   }
   if(whereInShape === 16){
     haveSavior = true;
+  }
+}
+
+function clearGrid(){
+  let sum = 0;
+  let clearRow = [];
+  let clearSquare = [];
+  let clearColumn = [];
+  for (let y = 0; y < grid.length; y ++){
+    for (let x = 0; x < grid[y].length; x ++){
+      if(grid[y][x] === 1){
+        sum += grid[y][x];
+
+      }
+    }
+    if (sum === 9){
+      clearRow.push(y);
+      sum = 0;
+    }
+    else if(sum !== 9){
+      sum = 0;
+    }
+  }
+
+  for (let x = 0; x < grid.length; x ++){
+    for (let y = 0; y < grid[x].length; y++){
+      if (grid[y][x] === 1){
+        sum += grid[y][x];
+      }
+    }
+    if (sum === 9){
+      clearColumn.push(x);
+      sum = 0;
+    }
+    else if(sum !== 9){
+      sum = 0;
+    }
+  }
+
+  for(let i = 0; i < 3; i ++){
+    for(let j = 0; j < 3; j ++){
+
+      for (let y = 0; y < 3; y++){
+        for (let x = 0; x < 3; x++){
+          if (grid[i*3 + y][j*3 + x] === 1){
+            sum += 1;
+          }
+        }
+      }
+
+    }
   }
 }
