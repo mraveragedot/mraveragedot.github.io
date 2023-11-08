@@ -154,7 +154,7 @@ function doYouHaveShape(){
     displayShape(longHor);
   }
   else if (haveShortestVer){
-    displayShape(shortVer);
+    displayShape(shortestVer);
   }
   else if (haveShortVer){
     displayShape(shortVer);
@@ -253,7 +253,7 @@ function mouseClicked(){
       haveLongHor = !haveLongHor;
     }
     else if (haveShortestVer){
-      placeBlock(shortVer,4);
+      placeBlock(shortestVer,4);
       haveShortestVer = !haveShortestVer;
     }
     else if (haveShortVer){
@@ -320,8 +320,6 @@ function placeBlock(theShape, whatitis){
   if (place){
     for(let i = 0; i < theShape.length; i ++){
 
-      console.log(1);
-      console.log(theShape);
       for(let j = 0; j < theShape[i].length; j ++){
         if (grid[y+i][x+j] !== 0 && theShape[i][j] !== 0){
           place = false;
@@ -329,7 +327,6 @@ function placeBlock(theShape, whatitis){
       }
     }
   }
-  console.log(place);
   if (place){
     for(let i = 0; i < theShape.length; i ++){
 
@@ -340,7 +337,6 @@ function placeBlock(theShape, whatitis){
 
         }
 
-        console.log(3);
       }
     }
 
@@ -369,7 +365,7 @@ function usableShapes(){
       displayItems(longHor, i);
     }
     else if (shapes[i] === 4){
-      displayItems(shortVer, i);
+      displayItems(shortestVer, i);
     }
     else if (shapes[i] === 5){
       displayItems(shortVer, i);
@@ -445,14 +441,9 @@ function giveShape(){
     shapes.splice(2,1);
   }
 
-  
-
-  console.log(x,y);
-
 }
 
 function makeHaveShape(whereInShape){
-  console.log(whereInShape);
   if(whereInShape === 1){
     haveShortestHor = true;
   }
@@ -550,6 +541,39 @@ function clearGrid(){
         }
       }
 
+      if (sum === 9){
+        sum = 0;
+        clearSquare.push([i,j])
+      }
+      if (sum !== 9){
+        sum = 0;
+        
+      }
     }
   }
+
+  for(i = 0; i < clearRow.length; i ++){
+    for(j = 0; j < 9; j ++){
+      grid[clearRow[0]][j] = 0;
+    }
+  }
+  clearRow = [];
+  
+  for(j = 0; j < clearColumn.length; j ++){
+    for(i = 0; i < 9; i++){
+      grid[i][clearColumn[j]] = 0;
+    }
+  }
+  clearColumn = [];
+
+  for(let i = 0; i < clearSquare.length;i++){
+    for (let y = 0; y < 3; y++){
+      for (let x = 0; x < 3; x++){
+        grid[clearSquare[i][0] * 3 + y][[clearSquare[i][1] * 3 + x]] = 0;
+        console.log(clearSquare[i][0] + y, clearSquare[i][1] + x);
+      }
+    }
+  }
+  clearSquare = [];
+
 }
