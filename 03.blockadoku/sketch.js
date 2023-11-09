@@ -3,10 +3,15 @@
 // October 27 2023
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// I made it so that any 2d array  with ones and zeros can be used to create a shape on the grid 
+// Then it checks if that shape can be placed and if it can it will make a gray shadow and if you click it will then place that block
+// then i check if the sum of the grids columns are equal to 9 and if it is it clears the rows, columns and squares that were full.
+// the most annoying part of this project was making all the possibilities for which shapes you had or could have i wish i used a list 
+// that contained all the shapes a boolean if you had it that way instead of writing everything 4 different times i could of used a for loop 
+// to search if i had it then if i did use the shape to put in on the grid 
 
 const GRID_SIZE = 9;
-let points = 0
+let points = 0;
 let grid = [];
 let shapeGrid = [];
 let cellSize;
@@ -75,10 +80,10 @@ function draw() {
 }
 
 function displayPoints(){
-  fill("black")
-  textSize(height/16)
+  fill("black");
+  textSize(height/16);
 
-  text(str(points), width/3, height/16)
+  text(str(points), width/3, height/16);
   
 }
 
@@ -553,7 +558,7 @@ function clearGrid(){
 
       if (sum === 9){
         sum = 0;
-        clearSquare.push([i,j])
+        clearSquare.push([i,j]);
       }
       if (sum !== 9){
         sum = 0;
@@ -562,21 +567,21 @@ function clearGrid(){
     }
   }
 
-  let multiplier = clearColumn.length + clearGrid.length + clearRow.length
+  let multiplier = clearColumn.length + clearGrid.length + clearRow.length;
   if( multiplier === 0){
-    multiplier = 1
+    multiplier = 1;
   }
   points += (clearColumn.length * 30 + clearGrid.length * 30 + clearRow.length * 30) * multiplier;
 
-  for(i = 0; i < clearRow.length; i ++){
-    for(j = 0; j < 9; j ++){
+  for(let i = 0; i < clearRow.length; i ++){
+    for(let j = 0; j < 9; j ++){
       grid[clearRow[0]][j] = 0;
     }
   }
   clearRow = [];
   
-  for(j = 0; j < clearColumn.length; j ++){
-    for(i = 0; i < 9; i++){
+  for(let j = 0; j < clearColumn.length; j ++){
+    for(let i = 0; i < 9; i++){
       grid[i][clearColumn[j]] = 0;
     }
   }
