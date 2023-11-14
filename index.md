@@ -13,6 +13,7 @@
 -[Grid neighbours](09.neighbours)
 -[game of life](10.game.of.life)
 -[character in grid](11.character)
+-[dog OOP Demo](12.dog.OOP)
 
 
 ## projects
