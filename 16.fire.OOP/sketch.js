@@ -25,18 +25,18 @@ function draw() {
 
 function mousePressed(){
   for(let i = 0; i <500; i++){
-    theFireworks.push(new Particle(mouseX,mouseY, random(-5, 5), random(-5, 5)));
+    theFireworks.push(new Particle(mouseX,mouseY, random(-5, 5), random(0,2 * PI)));
   }
 
 }
 
 class Particle{ 
-  constructor(x,y, dx, dy){
+  constructor(x,y, d, angle){
     this.x = x;
     this.y = y;
-    this.dx = dx;
-    this.dy = dy;
+    this.d = d;
     this.radius = 5;
+    this.angle = angle;
 
     this.r = 255;
     this.g = 0;
@@ -46,8 +46,8 @@ class Particle{
 
   update(){
     //moving
-    this.x += this.dx;
-    this.y += this.dy;
+    this.x = this.x + cos(this.angle) * this.d;
+    this.y = this.y + sin(this.angle) * this.d;
 
     //get transparent
     if(this.alpha > 0){
