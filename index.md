@@ -17,6 +17,7 @@
 - [Walker OOP Demo](13.Walker.OOP)
 - [Ball OOP Demo](14.Ball.OOP)
 - [Node OOP Demo](15.Nodes)
+- [Fireworks Demo](16.fire.OOP)
 
 ## projects
 - [interactive Scene](piano-tiles)
