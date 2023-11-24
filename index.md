@@ -18,6 +18,7 @@
 - [Ball OOP Demo](14.Ball.OOP)
 - [Node OOP Demo](15.Nodes)
 - [Fireworks Demo](16.fire.OOP)
+- [Inheritance Demo](17.inheritance)
 
 ## projects
 - [interactive Scene](piano-tiles)
