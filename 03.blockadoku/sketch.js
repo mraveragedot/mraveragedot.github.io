@@ -10,6 +10,8 @@
 // that contained all the shapes a boolean if you had it that way instead of writing everything 4 different times i could of used a for loop 
 // to search if i had it then if i did use the shape to put in on the grid 
 
+
+//setting variables 
 const GRID_SIZE = 9;
 let points = 0;
 let grid = [];
@@ -19,7 +21,7 @@ let otherCellSize;
 let shapes = [];
 let haveBlock = false;
 
-
+//making lists of shapes that will be used to place on grid
 let shortestHor = [[1,1]];
 let shortHor = [[1,1,1]];
 let longHor = [[1,1,1,1,1]];
@@ -37,6 +39,7 @@ let upT = [[0,1,0],[1,1,1]];
 let downT = [[1,1,1],[0,1,0]];
 let savior = [[1]];
 
+//variable for saying which is currently in players hand
 let haveShortestHor = false;
 let haveShortHor = false;
 let haveLongHor = false;
@@ -58,7 +61,7 @@ let haveSavior = false;
 
 
 
-
+//creating starting grids and the cell size for those gridds
 function setup() {
   createCanvas(windowWidth, windowHeight);
   grid = createEmptyGrid();
@@ -69,6 +72,7 @@ function setup() {
 
 }
 
+//main draw loop
 function draw() {
   background(80,47,13);
   doYouHaveShape();  
@@ -79,6 +83,7 @@ function draw() {
   displayPoints();
 }
 
+//displaying the points on screen
 function displayPoints(){
   fill("black");
   textSize(height/16);
@@ -87,21 +92,22 @@ function displayPoints(){
   
 }
 
+//displays the lower grid that holds the shapes
 function displayShapeGrid(rows, cols){
   for(let y = 0; y < rows; y ++){
     for (let x = 0; x < cols; x ++){
-      if(shapeGrid[y][x] === 0){
+      if(shapeGrid[y][x] === 0){ //makes the squares a different color 
         if (x < 6 || x > 11){
-          fill(139,139,59);
+          fill(139,139,59); // makes left nad right rectangles green
         }
         else{
-          fill(149,159,109);
+          fill(149,159,109); //makes middle light green
         }
       }
-      else if (shapeGrid[y][x] === 1){
+      else if (shapeGrid[y][x] === 1){ // if there is a block have it brown
         fill(73, 32, 0);
       }
-      rect(x * otherCellSize + width/3 , height - cellSize*4 + y * otherCellSize, otherCellSize, otherCellSize);
+      rect(x * otherCellSize + width/3 , height - cellSize*4 + y * otherCellSize, otherCellSize, otherCellSize); //drawing the grid
     }
   }
   shapeGrid = createShapeGrid();
@@ -109,7 +115,7 @@ function displayShapeGrid(rows, cols){
 }
 
 
-function createEmptyGrid(){
+function createEmptyGrid(){ // creates the game board
   let emptyGrid = [];
   for(let y = 0; y < GRID_SIZE; y++){
     emptyGrid.push([]);
@@ -120,7 +126,7 @@ function createEmptyGrid(){
   return emptyGrid;
 }
 
-function createShapeGrid(){
+function createShapeGrid(){ // creates empty grid to hold players shapes
   let emptyGrid = [];
   for(let y = 0; y < 5; y++){
     emptyGrid.push([]);
@@ -131,34 +137,33 @@ function createShapeGrid(){
   return emptyGrid;
 }
 
-
-function displayGrid(cols, rows){
+function displayGrid(cols, rows){ //displays the main board 
   for(let y = 0; y < cols; y ++){
     for (let x = 0; x < rows; x ++){
       if(grid[y][x] === 0){
         // eslint-disable-next-line no-extra-parens
-        if ( (y < 3 && (x < 3 || x > 5)) || (y > 2 && y < 6  && x > 2 && x < 6) || (y > 5 && (x < 3 || x > 5)) ){
+        if ( (y < 3 && (x < 3 || x > 5)) || (y > 2 && y < 6  && x > 2 && x < 6) || (y > 5 && (x < 3 || x > 5)) ){ //makes it so the squares aren't beside the same color
           fill(150, 75, 0);
         }
         else{
           fill(200, 125, 0);
         }
       }
-      else if (grid[y][x] === 1){
+      else if (grid[y][x] === 1){ // if there is a shape make it brown
         fill(73, 32, 0);
       }
-      else if (grid[y][x] === 2){
+      else if (grid[y][x] === 2){ // if player is hovering over spot and it can be placed color gray
         fill(100,100,100);
       }
-      rect(x * cellSize + width/3, y * cellSize + height/6, cellSize, cellSize);
+      rect(x * cellSize + width/3, y * cellSize + height/6, cellSize, cellSize); //drawing the main board
       if (grid[y][x] === 2){
-        grid[y][x] = 0;
+        grid[y][x] = 0; // getting rid of the block "shadow"
       }
     }
   }
 }
 
-function doYouHaveShape(){
+function doYouHaveShape(){ //if you have the shape it calls the function displayShape()
   if (haveShortestHor){
     displayShape(shortestHor);
   }
@@ -214,11 +219,11 @@ function displayShape(theShape){
   let place = true;
   let x = floor((mouseX - width/3) / cellSize);
   let y = floor((mouseY - height/6) / cellSize);
-  if (x + theShape[0].length > GRID_SIZE || y + theShape.length > GRID_SIZE || x < 0 || y <0){
+  if (x + theShape[0].length > GRID_SIZE || y + theShape.length > GRID_SIZE || x < 0 || y <0){ // if you are outside of the grid makes it so shape shadow isnt displayed
     place = false;
   }
   
-  if (place){
+  if (place){ //if inside the grid checks if its a valid spot to be placed
     for(let i = 0; i < theShape.length; i ++){
       for(let j = 0; j < theShape[i].length; j ++){
 
@@ -229,7 +234,7 @@ function displayShape(theShape){
     }
   }
 
-  if (place){
+  if (place){ // if in grid and valid spot then makes the shape shadow (the gray spot on board showing where you would put block if you clicked)
     for(let i = 0; i < theShape.length; i ++){
 
       for(let j = 0; j < theShape[i].length; j ++){
@@ -246,13 +251,13 @@ function displayShape(theShape){
 
 
 
-function mouseClicked(){
-  if (!haveBlock){
+function mouseClicked(){  
+  if (!haveBlock){ // if you arent holding shape calls giveShape()
     giveShape();
 
   }
 
-  else if (haveBlock){
+  else if (haveBlock){ // if you have shape sends what shape you have to the placeblock() function 1st thing is the shape array, 2nd ask is the number that corrisponds with that shape
 
     if (haveShortestHor){
       placeBlock(shortestHor,1);
@@ -327,11 +332,11 @@ function placeBlock(theShape, whatitis){
   let place = true;
   let x = floor((mouseX - width/3) / cellSize);
   let y = floor((mouseY - height/6) / cellSize);
-  if (x + theShape[0].length > GRID_SIZE || y + theShape.length > GRID_SIZE){
+  if (x + theShape[0].length > GRID_SIZE || y + theShape.length > GRID_SIZE){ // checks if you are inside grid
     place = false;
   }
   
-  if (place){
+  if (place){ //checks if you can actually place
     for(let i = 0; i < theShape.length; i ++){
 
       for(let j = 0; j < theShape[i].length; j ++){
@@ -341,7 +346,7 @@ function placeBlock(theShape, whatitis){
       }
     }
   }
-  if (place){
+  if (place){ // actually places the block onto the grid
     for(let i = 0; i < theShape.length; i ++){
 
       for(let j = 0; j < theShape[i].length; j ++){
@@ -356,20 +361,20 @@ function placeBlock(theShape, whatitis){
     }
 
   }
-  if (!place){
+  if (!place){ // if wasnt able to place puts the shape back in the shape grid
     haveBlock = false;
     shapes.push(whatitis);
   }
   
 }
 
-function usableShapes(){
-  if (shapes.length === 0 && !haveBlock){
+function usableShapes(){ 
+  if (shapes.length === 0 && !haveBlock){ //if you have used all shapes gives three new random shapes
     shapes.push(floor(random(1, 17)));
     shapes.push(floor(random(1, 17)));
     shapes.push(floor(random(1, 17)));
   }
-  for(let i = 0; i < shapes.length; i ++){
+  for(let i = 0; i < shapes.length; i ++){ // based on what random shape is given sends it to the displayItem function to be drawn on the shape grid
     if (shapes[i] === 1){
       displayItems(shortestHor, i);
     }
@@ -422,7 +427,7 @@ function usableShapes(){
 }
 
 
-function displayItems(theShape , box){
+function displayItems(theShape , box){ // displays the the blocks on the shpae grid 
   
   for(let i = 0; i < theShape.length; i ++){
 
@@ -436,21 +441,21 @@ function displayItems(theShape , box){
   
 }
 
-function giveShape(){
+function giveShape(){ 
   let x = floor((mouseX - width/3) / otherCellSize);
   let y = floor((mouseY - height - cellSize*4) / otherCellSize);
 
-  if (x >= 0 && x <= 5 && y <= -12 && y >= -16){
+  if (x >= 0 && x <= 5 && y <= -12 && y >= -16){ // if you click on the first square gives you that shape
     haveBlock = true;
-    makeHaveShape(shapes[0]);
+    makeHaveShape(shapes[0]); 
     shapes.splice(0,1);
   }
-  else if (x >= 6 && x <= 11 && y <= -12 && y >= -16){
+  else if (x >= 6 && x <= 11 && y <= -12 && y >= -16){ // gives second square shape
     haveBlock = true;
     makeHaveShape(shapes[1]);
     shapes.splice(1,1);
   }
-  else if (x >= 12 && x <= 17 && y <= -12 && y >= -16){
+  else if (x >= 12 && x <= 17 && y <= -12 && y >= -16){ //gives third square shape
     haveBlock = true;
     makeHaveShape(shapes[2]);
     shapes.splice(2,1);
@@ -458,7 +463,7 @@ function giveShape(){
 
 }
 
-function makeHaveShape(whereInShape){
+function makeHaveShape(whereInShape){ //when you are given shape makes it so that shape variable is true so it can be displayed and placed
   if(whereInShape === 1){
     haveShortestHor = true;
   }
@@ -509,12 +514,12 @@ function makeHaveShape(whereInShape){
   }
 }
 
-function clearGrid(){
+function clearGrid(){ 
   let sum = 0;
   let clearRow = [];
   let clearSquare = [];
   let clearColumn = [];
-  for (let y = 0; y < grid.length; y ++){
+  for (let y = 0; y < grid.length; y ++){ // goes through each row and adds up each spot if the sum is 9 then pushes the row number to be cleared
     for (let x = 0; x < grid[y].length; x ++){
       if(grid[y][x] === 1){
         sum += grid[y][x];
@@ -530,7 +535,7 @@ function clearGrid(){
     }
   }
 
-  for (let x = 0; x < grid.length; x ++){
+  for (let x = 0; x < grid.length; x ++){ // checks each column and adds each square to see if the sum is 9 if so it pushes the column number to be cleared
     for (let y = 0; y < grid[x].length; y++){
       if (grid[y][x] === 1){
         sum += grid[y][x];
@@ -545,7 +550,7 @@ function clearGrid(){
     }
   }
 
-  for(let i = 0; i < 3; i ++){
+  for(let i = 0; i < 3; i ++){ //checks each 3x3 square thats colored if the sum is 9 pushes the cordinates to get rid of 3x3
     for(let j = 0; j < 3; j ++){
 
       for (let y = 0; y < 3; y++){
@@ -567,27 +572,29 @@ function clearGrid(){
     }
   }
 
+  //reason i cleared things afterwards so that one move can clear both a column and a row at the same time
+
   let multiplier = clearColumn.length + clearGrid.length + clearRow.length;
   if( multiplier === 0){
-    multiplier = 1;
+    multiplier = 1; // if you clear more then one thing at the same time adds multiplier
   }
   points += (clearColumn.length * 30 + clearGrid.length * 30 + clearRow.length * 30) * multiplier;
 
-  for(let i = 0; i < clearRow.length; i ++){
+  for(let i = 0; i < clearRow.length; i ++){ //clears the row 
     for(let j = 0; j < 9; j ++){
       grid[clearRow[0]][j] = 0;
     }
   }
   clearRow = [];
   
-  for(let j = 0; j < clearColumn.length; j ++){
+  for(let j = 0; j < clearColumn.length; j ++){ // clears the column
     for(let i = 0; i < 9; i++){
       grid[i][clearColumn[j]] = 0;
     }
   }
   clearColumn = [];
 
-  for(let i = 0; i < clearSquare.length;i++){
+  for(let i = 0; i < clearSquare.length;i++){ //from the cordinate counts from that spot in a square formation to set back to clear
     for (let y = 0; y < 3; y++){
       for (let x = 0; x < 3; x++){
         grid[clearSquare[i][0] * 3 + y][[clearSquare[i][1] * 3 + x]] = 0;
