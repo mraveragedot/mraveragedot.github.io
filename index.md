@@ -20,6 +20,7 @@
 - [Fireworks Demo](16.fire.OOP)
 - [Inheritance Demo](17.inheritance)
 - [Collision Demo](18.collision)
+- [p5play template](19.p5play)
 
 ## projects
 - [interactive Scene](piano-tiles)
