@@ -22,6 +22,7 @@
 - [Collision Demo](18.collision)
 - [p5play Template](19.p5play)
 - [Recursion Circle Demo](20.recursion)
+- [sierpinski triangle](21.triangle)
 
 ## projects
 - [interactive Scene](piano-tiles)
